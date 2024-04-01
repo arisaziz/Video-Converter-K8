@@ -1,11 +1,20 @@
-# Devops Project: 
-convert video to audio using python. architecture hosted on AWS Elastics Kubernetes Service
+# Devops Project: Video Converter
+convert video to audio using microservice architecture
 
-## Objective
-[Brief Objective - Remove this afterwards]
+## Architecture
+<p align="center">
+  <img src="./Images/ProjectArchitecture.png" width="600" title="Architecture" alt="Architecture">
+  </p>
 
+## Deploying a Python-based Microservice Application on AWS EKS
 
-The Detection Lab project aimed to establish a controlled environment for simulating and detecting cyber attacks. The primary focus was to ingest and analyze logs within a Security Information and Event Management (SIEM) system, generating test telemetry to mimic real-world attack scenarios. This hands-on experience was designed to deepen understanding of network security, attack patterns, and defensive strategies.
+### Introduction
+The project aimed to deploy a Python-based microservice application on AWS Elastic Kubernetes Service (EKS) for video conversion. Leveraging Helm, the deployment included PostgreSQL and MongoDB databases to support the application's data needs. Additionally, RabbitMQ was integrated into the architecture to handle asynchronous messaging. The microservices were divided into four major components:
+
+auth-server: Responsible for handling user authentication and authorization.
+converter-module: Core microservice for converting video files from one format to another.
+database-server: Manages the storage and retrieval of data in PostgreSQL and MongoDB databases.
+notification-server: Handles notifications and alerts within the application.
 
 ### Skills Learned
 [Bullet Points - Remove this afterwards]
