@@ -41,18 +41,28 @@ Before you start, make sure following prerequisites are met:
 ### Step-by-step
 
 1. **Login to WS console**
-  - Access the AWS console with your credential or create new account.
+   - Access the AWS console with your credential or create new account.
 
 2. **Create eksCluster IAM Role**
    - Follow the steps mentioned in [this](https://docs.aws.amazon.com/eks/latest/userguide/service_IAM_role.html) documentation using root user
    - After creating it will look like this:
 
    <p align="center">
-  <img src="./Project documentation/ekscluster_role.png" width="600" title="ekscluster_role" alt="ekscluster_role">
+  <img src="./Images/ekscluster_role.png" width="600" title="ekscluster_role" alt="ekscluster_role">
   </p>
 
    - Please attach `AmazonEKS_CNI_Policy` explicitly if it is not attached by default
 
+
+3. **Create Node Role -AmazonEKSNodeROle**
+    - Follow the steps mention in [this](https://docs.aws.amazon.com/eks/latest/userguide/create-node-role.html#create-worker-node-role) documentaion useing root user.
+    - We are using default VPC for this project thus no need to configure new VPC.
+    - Once your role created, attach these policies `AmazonEKS_CNI_Polocy` , `AmazonEBSCSIDriverPolicy` , and `AmazonEC2ContainerRegistryReadOnly` incase it is not attached by default.
+    - The AmazonEKSNodeRole will look like this
+   
+    <p allign="center">
+    <img src=".Images/node_iam.png" width="600" title="eksnode_role" alt="eksnode_role">
+    </p>
 
 
 
