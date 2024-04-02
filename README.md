@@ -27,10 +27,45 @@ The project aimed to deploy a Python-based microservice application on AWS Elast
 - **Security Measures**: Implementing user authentication and authorization mechanisms, including JWT token generation and validation.
 
 ## Steps
-drag & drop screenshots here or use imgur and reference them using imgsrc
 
-Every screenshot should have some text explaining what the screenshot is about.
+### Prerequisites
+Before you start, make sure following prerequisites are met:
 
-Example below.
+1. Create AWS Account
+2. Install Helm
+3. Install Python
+4. Install AWS CLI
+5. Install `Kubectl`
+6. Setup PostgreSQL and MongoDB
 
-*Ref 1: Network Diagram*
+### Step-by-step
+
+1. **Login to WS console**
+  - Access the AWS console with your credential or create new account.
+
+2. **Create eksCluster IAM Role**
+   - Follow the steps mentioned in [this](https://docs.aws.amazon.com/eks/latest/userguide/service_IAM_role.html) documentation using root user
+   - After creating it will look like this:
+
+   <p align="center">
+  <img src="./Project documentation/ekscluster_role.png" width="600" title="ekscluster_role" alt="ekscluster_role">
+  </p>
+
+   - Please attach `AmazonEKS_CNI_Policy` explicitly if it is not attached by default
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
