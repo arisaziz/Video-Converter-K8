@@ -90,7 +90,7 @@ Before you start, make sure following prerequisites are met:
    </p>
 
 9. **Enable EBS CSI Addon**
-    - Enable addon `esb csi` to allow EKS cluster to use EBS in AWS as persistance storage.
+    - Enable addon `esb csi` to allow EKS cluster to use EBS in AWS as persistence storage.
   
    <p align="center">
      <img src="./Images/ebs_addon.png" width="600" title="ebs_addon" alt="ebs_addon"
@@ -118,11 +118,28 @@ Before you start, make sure following prerequisites are met:
      - MongoDB folder contain 2 file
          - **chart**: a configuration file we set up that need to be install in cluster using helm.
          - **value**: it store username and password to login to mongo, can change password here.
+         - **template folder**: contain some configuration for pod including pv.yaml.
+    
+     - Install MongoDB
      ```
      cd Helm_charts/MongoDB
      helm install mongo .
      ```
+     - To check wether the pod that run the MongoDB is running or not. This command will show all pod status inside the cluster:
+    ```
+    kubectl get all
+    ```
+    - Actually the we also define a persistence volume for the pod, to check pv status :
+    ```
+    kubectl get pv
+    ```
+    - Connect to MongoDB instance:
+     ```
+     mongosh mongodb://<username>:<pwd>@<nodeip>:30005/mp3s?authSource=admin
+     ```
+     **NOTE:** `helm` command is use to install MongoDB inside Kubernetes cluster.
 
+13. ****
 
 
 
