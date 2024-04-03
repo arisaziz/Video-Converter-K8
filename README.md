@@ -115,11 +115,12 @@ Before you start, make sure following prerequisites are met:
     **NOTE:** Before this command execute, your kubectl manage the kubernetes in your pc. After executed, kubectl will manage the cluster in AWS.
 
 11. **Install MongoDB in Node**
-     - Inside MongoDB folder inside the helm_chart have 2 file
-         - "chart": a configuration file we set up that need to be install in cluster using helm.
-         - "value": it store username and password to login to mongo, can change password here.
+     - MongoDB folder contain 2 file
+         - **chart**: a configuration file we set up that need to be install in cluster using helm.
+         - **value**: it store username and password to login to mongo, can change password here.
      ```
-     cd 
+     cd Helm_charts/MongoDB
+     helm install mongo .
      ```
 
 
