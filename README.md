@@ -11,10 +11,10 @@ convert video to audio using microservice architecture
 ### Introduction
 The project aimed to deploy a Python-based microservice application on AWS Elastic Kubernetes Service (EKS) for video conversion. Leveraging Helm, the deployment included PostgreSQL and MongoDB databases to support the application's data needs. Additionally, RabbitMQ was integrated into the architecture to handle asynchronous messaging. The microservices were divided into four major components:
 
-- auth-server: Responsible for handling user authentication and authorization.
-- converter-module: Core microservice for converting video files from one format to another.
-- database-server: Manages the storage and retrieval of data in PostgreSQL and MongoDB databases.
-- notification-server: Handles notifications and alerts within the application.**
+- `auth-server`: Responsible for handling user authentication and authorization.
+- `converter-module`: Core microservice for converting video files from one format to another.
+- `database-server`: Manages the storage and retrieval of data in PostgreSQL and MongoDB databases.
+- `notification-server`: Send notification to the user via email after video conversion done.
 
 ### Skills Learned
 
@@ -30,13 +30,13 @@ The project aimed to deploy a Python-based microservice application on AWS Elast
 
 ### Prerequisites
 Before you start, make sure following prerequisites are met:
-
-1. Create AWS Account
-2. Install Helm
-3. Install Python
-4. Install AWS CLI
-5. Install `Kubectl`
-6. Setup PostgreSQL and MongoDB
+**
+1. **Create AWS Account**
+2. **Install Helm**
+3. **Install Python**
+4. **Install AWS CLI**
+5. **Install Kubectl**
+6. **Setup PostgreSQL and MongoDB**
 
 ### Step-by-step
 
@@ -60,9 +60,69 @@ Before you start, make sure following prerequisites are met:
     - Once your role created, attach these policies `AmazonEKS_CNI_Polocy` , `AmazonEBSCSIDriverPolicy` , and `AmazonEC2ContainerRegistryReadOnly` incase it is not attached by default.
     - The AmazonEKSNodeRole will look like this
    
-    <p allign="center">
-    <img src=".Images/node_iam.png" width="600" title="eksnode_role" alt="eksnode_role">
+    <p align="center">
+    <img src="./Images/node_iam.png" width="600" title="Node_IAM" alt="Node_IAM">
     </p>
+
+4. **Open EKS Dashboard**
+    - Find EKS service inside AWS Console dashboard.
+
+5. **Create EKS Cluster**
+    - Click "Create Cluster".
+    - Give a name to your cluster.
+    - Setup networking setting for VPN and subnet.
+    - Select `eksCluster` IAM role we created before.
+    - Review and create cluster.
+
+6. **Cluster Creation**
+    - Wait until cluster status show "Active", then can start create node groups.
+
+7. **Node Group Creation**
+    - In "Compute" section inside the cluster, click on "Add node group".
+    - Choose the AMI(default), instance type(t3.medium) and the number of nodes(desire:1,minimum:1,maximum:1).
+    - For subnet, use default.
+  
+8. **Adding Inbound rule to Nodes's Security Group**
+    - To ensure that nessesary port are open for inbound traffic.
+
+   <p align="center">
+     <img src="./Images/inbound_rules_sg.png" width="600" title="inbound_rule_sg" alt="inbound_rule_sg"
+   </p>
+
+9. **Enable EBS CSI Addon**
+    - Enable addon `esb csi` to allow EKS cluster to use EBS in AWS as persistance storage.
+  
+   <p align="center">
+     <img src="./Images/ebs_addon.png" width="600" title="ebs_addon" alt="ebs_addon"
+  </p>
+
+10. **Deploy application on EKS Cluster**
+    - Clone the Python code from my repository.
+    - **Connect AWS CLI with cluster**, enter this command inside your CLI:
+      ```
+      aws eks update-kubeconfig --name <clluster name> --region <cluster region>
+      ```
+    - for this case :
+      ```
+      aws eks update-kubeconfig --name Microservice --region us-east-1
+      ```
+    - To check if the connection is OK, enter
+      ```
+      kubectl get ns
+      ```
+      It will list down "default namespace" if the connection is good.
+      
+    **NOTE:** Before this command execute, your kubectl manage the kubernetes in your pc. After executed, kubectl will manage the cluster in AWS.
+
+11. **Install MongoDB in Node**
+     - Inside MongoDB folder inside the helm_chart have 2 file
+         - "chart": a configuration file we set up that need to be install in cluster using helm.
+         - "value": it store username and password to login to mongo, can change password here.
+     ```
+     cd 
+     ```
+
+
 
 
 
