@@ -142,10 +142,12 @@ Before you start, make sure following prerequisites are met:
      **NOTE:** `helm` command is use to install MongoDB inside Kubernetes cluster.
 
 12. **Install Postgres**
-     - Postgres is use for user authentication.
-     - Set the username and password in "values.yaml".
-     - If you like to receive email notification, you can set your email in "init.sql" as well as in "/src/notification-service/manifest/secret.yaml".
-     - For how to get the gmail password, you can follow the step [here](https://youtu.be/g8X5AoqCJHc?t=4222).
+     - About Postgres
+       - Postgres is use for user authentication.
+       - You can set the username and password in "values.yaml".
+       - If you like to receive email notification, you can set your email in "init.sql" as well as in "/src/notification-service/manifest/secret.yaml".
+       - As for how to create the gmail password, you can follow the step [here](https://youtu.be/g8X5AoqCJHc?t=4222).
+     - Install Postgres
       ```
       cd Helm_charts/Postgres
       helm install postgres .
@@ -159,8 +161,25 @@ Before you start, make sure following prerequisites are met:
      - To create the table for authentication, copy the query inside Postgres/templates/init.sql and paste it in `authdb=#`.
      - This query will create a new table and insert one email and user password. Run `\d ` and it will show any table available.
     <p align="center">
-      <img src="./Images/show postgres table.png" width="600" title="ekscluster_role" alt="ekscluster_role">
+      <img src="./Images/show postgres table.png" width="400" title="ekscluster_role" alt="ekscluster_role">
     </p>
+
+     - Run `SELECT * FROM auth_user` to show what inside the table. `\q` to quit.
+
+14. **Deploy RabbitMQ**
+     - Deploy RabbitMQ by running:
+      ```
+      helm install rabbitmq .
+      ```
+     - Run `\d` and observe the port for RabbitMQ show 30004.
+     - To open the rabbitMQ interface, open browser and search for:
+      ```
+      http://<node-ip>:30004
+      ```
+     <p align="center">
+       <img src="./Image/RabbitMQinterface.png" width="500" title="ekscluster_role" alt="ekscluster_role">
+     </p >
+      
 
 
 
