@@ -46,7 +46,7 @@ Before you start, make sure following prerequisites are met:
 2. **Create eksCluster IAM Role**
    - Follow the steps mentioned in [this](https://docs.aws.amazon.com/eks/latest/userguide/service_IAM_role.html) documentation using root user.
    - Please attach `AmazonEKS_CNI_Policy` explicitly if it is not attached by default.
-   - After creating it will look like this:
+   - After created it will look like this:
 
     <p align="center">
     <img src="./Images/ekscluster_role.png" width="600" title="ekscluster_role" alt="ekscluster_role">
@@ -112,7 +112,8 @@ Before you start, make sure following prerequisites are met:
       
     **NOTE:** Before this command execute, your kubectl manage the kubernetes in your pc. After executed, kubectl will manage the cluster in AWS.
 
-11. **Install MongoDB in Node**
+11. **Install MongoDB in Node** 
+     - MongoDB is use for storing video and audio file.
      - MongoDB folder contain:
          - **chart**: a configuration file we set up that need to be install in cluster using helm.
          - **value**: it store username and password to login to mongo, can change password here.
@@ -140,7 +141,8 @@ Before you start, make sure following prerequisites are met:
      ```
      **NOTE:** `helm` command is use to install MongoDB inside Kubernetes cluster.
 
-13. **Install Postgres**
+12. **Install Postgres**
+     - Postgres is use for user authentication.
      - Set the username and password in "values.yaml".
      - If you like to receive email notification, you can set your email in "init.sql" as well as in "/src/notification-service/manifest/secret.yaml".
      - For how to get the gmail password, you can follow the step [here](https://youtu.be/g8X5AoqCJHc?t=4222).
@@ -148,14 +150,17 @@ Before you start, make sure following prerequisites are met:
       cd Helm_charts/Postgres
       helm install postgres .
       ```
-     - Connect to Postgres database
+13. **Connect to Postgres**
+     - Run the command in CLI to connect with Postgres. Nodeip you can get at node's ec2 public ip.
       ```
       psql 'postgres://<username>:<pwd>@<nodeip>:30003/authdb'
       ```
-     - In this case, your may refer the values.yaml in Postgres folder
-      ```
-      psql 'postgres://:cnd2023@<nodeip>:30003/authdb'
-
+     - When connected to postgres, you will be in `authdb=#`. Here you can perform SQL query such as `\d` to show any relation available inside the database. Once you run the query it will show that there is no relation inside it since we havent create any table yet.
+     - To create the table for authentication, copy the query inside Postgres/templates/init.sql and paste it in `authdb=#`.
+     - This query will create a new table and insert one email and user password. Run `\d ` and it will show any table available.
+    <p align="center">
+      <img src=
+    </p>
 
 
 
