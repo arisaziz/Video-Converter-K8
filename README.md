@@ -159,7 +159,7 @@ Before you start, make sure following prerequisites are met:
      - To create the table for authentication, copy the query inside Postgres/templates/init.sql and paste it in `authdb=#`.
      - This query will create a new table and insert one email and user password. Run `\d ` and it will show any table available.
     <p align="center">
-      <img src=
+      <img src="./Images/show postgres table.png" width="600" title="ekscluster_role" alt="ekscluster_role">
     </p>
 
 
