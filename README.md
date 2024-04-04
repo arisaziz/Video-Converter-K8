@@ -141,7 +141,20 @@ Before you start, make sure following prerequisites are met:
      **NOTE:** `helm` command is use to install MongoDB inside Kubernetes cluster.
 
 13. **Install Postgres**
-     - 
+     - Set the username and password in "values.yaml".
+     - If you like to receive email notification, you can set your email in "init.sql" as well as in "/src/notification-service/manifest/secret.yaml".
+     - For how to get the gmail password, you can follow the step [here](https://youtu.be/g8X5AoqCJHc?t=4222).
+      ```
+      cd Helm_charts/Postgres
+      helm install postgres .
+      ```
+     - Connect to Postgres database
+      ```
+      psql 'postgres://<username>:<pwd>@<nodeip>:30003/authdb'
+      ```
+     - In this case, your may refer the values.yaml in Postgres folder
+      ```
+      psql 'postgres://:<pwd>@<nodeip>:30003/authdb'
 
 
 
