@@ -154,7 +154,7 @@ Before you start, make sure following prerequisites are met:
       ```
      - In this case, your may refer the values.yaml in Postgres folder
       ```
-      psql 'postgres://:<pwd>@<nodeip>:30003/authdb'
+      psql 'postgres://:cnd2023@<nodeip>:30003/authdb'
 
 
 
