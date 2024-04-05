@@ -227,6 +227,28 @@ Before you start, make sure following prerequisites are met:
        kubectl scale deployment converter --replicas 2
        ```
      - So for "converter", instead of using 4 pods now we scale it to 2.
+   
+## Application Testing
+- cd to your asset folder.
+- **Log in**. Insert node-ip, username and password that we created in postgres.
+  ```
+  curl -X POST http://nodeIP:30002/login -u <email>:<password>
+  ```
+- If the login successfully you will get a string of JWT token like `jasbdjasdkjsbfajsndklasnlkasnvlkasnfbkjgbajsfjqowajflsnvkasdfjaf0i43rnaf`
+- **Upload video**. Insert mode-ip and JWT token.
+  ```
+  curl -X POST -F 'file=@./video.mp4' -H 'Authorization: Bearer <JWT Token>' http://nodeIP:30002/upload
+  ```
+- You will get "success" message once the video uploaded and an email with mp3 file id once the video converted.
+- **Download Video**. Enter the JWT token, node-ip and "FID" from the email and paste in command:
+  ```
+   curl --output video.mp3 -X GET -H 'Authorization: Bearer <JWT Token>' "http://nodeIP:30002/download?fid=<Generated fid>"
+  ```
+- Video will be downloaded into the asset folder.
+
+## Destroy AWS Infrastructure
+1. **Delete the Node Group** associate with your cluster.
+2. **Delete the EKS CLuster** once node group deleted.
 
 
 
