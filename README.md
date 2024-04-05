@@ -188,10 +188,45 @@ Before you start, make sure following prerequisites are met:
         - name: mp3
       - Click "Add Queue". Repeat same step for *video*, just change the name.
    
-16. **Apply Microservice Manifest File**
+16. **Build Docker Image**
+     - Inside the `src/auth-service` folder contain a Dockerfile.
+     - You have option whether to create Docker Image from this Dockerfile and push it to Docker Hub or use readily available image in DockerHub that use python base like *python:3.10-slim*.
+     - Cd to auth-service folder and run this command to build image:
+       ```
+       docker build -t auth .
+       ```
+     - run this command to see if the `auth` image have been build:
+       ```
+       docker images
+       ```
+     - Before push the image to Docker Hub, check if you are login or not, if not please login:
+       ```
+       docker login
+       ```
+     - Tag the image with your account name: `docker tag <local-image>:<tagname> <new-repo:tagname>`
+       ```
+       docker tag auth:latest aris/auth
+       ```
+     -  Check again the image with `docker images` and see if "aris/auth" image is available
+     -  **Push** the image to DockerHub
+       ```
+        docker push aris/auth
+       ```
 
-
-
+17. **Apply Microservice Manifest File on Kubernetes**
+     - Manifest file is use to declare the desire state of your application or infrastructure in kubernetes.
+     - cd to **auth-service/manifest** file and run this command:
+       ```
+       kubectl apply -f .
+       ```
+     - If you run `kubectl get all` then you can see there are 2 auth pods were created as stated in development file.
+     - Same for **gateway, converter and notification**, cd to their manifest file and run the `kubectl apply` command.
+       
+     **NOTES**: You can always scale up or down the number of replica(pod) for each microservice using this command:
+       ```
+       kubectl scale deployment converter --replicas 2
+       ```
+     - So for "converter", instead of using 4 pods now we scale it to 2.
 
 
 
