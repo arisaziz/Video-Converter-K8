@@ -1,4 +1,4 @@
-# Devops Project: Video Converter
+# Devops Project: Video to Audio Converter
 convert video to audio using microservice architecture
 
 ## Architecture
@@ -67,7 +67,7 @@ Before you start, make sure following prerequisites are met:
 
 5. **Create EKS Cluster**
     - Click "Create Cluster".
-    - Give a name to your cluster.
+    - Name your cluster as "Microservice".
     - Setup networking setting for VPN and subnet.
     - Select `eksCluster` IAM role we created before.
     - Review and create cluster.
@@ -96,7 +96,7 @@ Before you start, make sure following prerequisites are met:
 
 10. **Deploy application on EKS Cluster**
     - Clone the Python code from my repository.
-    - **Connect AWS CLI with cluster**, enter this command inside your CLI:
+    - **Connect with EKS cluster**:
       ```
       aws eks update-kubeconfig --name <cluster name> --region <cluster region>
       ```
@@ -124,7 +124,7 @@ Before you start, make sure following prerequisites are met:
      cd Helm_charts/MongoDB
      helm install mongo .
      ```
-     - To check wether the pod that run the MongoDB is running or not. This command will show all pod status inside the cluster:
+     - To check wether the pod that run the MongoDB is running or not. These two command will show all pod status inside the cluster:
     ```
     kubectl get pods
     ```
@@ -139,7 +139,7 @@ Before you start, make sure following prerequisites are met:
      ```
      mongosh mongodb://<username>:<pwd>@<nodeip>:30005/mp3s?authSource=admin
      ```
-     **NOTE:** `helm` command is use to install MongoDB inside Kubernetes cluster.
+     **NOTE:** `helm` command is use to install MongoDB, Postgres and RabbitMQ inside Kubernetes cluster based on Helm chart that was written in yaml.
 
 12. **Install Postgres**
      - About Postgres
@@ -161,7 +161,7 @@ Before you start, make sure following prerequisites are met:
      - To create the table for authentication, copy the query inside Postgres/templates/init.sql and paste it in `authdb=#`.
      - This query will create a new table and insert one email and user password. Run `\d ` and it will show any table available.
     <p align="center">
-      <img src="./Images/show postgres table.png" width="400" title="ekscluster_role" alt="ekscluster_role">
+      <img src="./Images/show postgres table.png" width="400" title="postgrestable" alt="postgrestable">
     </p>
 
      - Run `SELECT * FROM auth_user` to show what inside the table. `\q` to quit.
@@ -171,15 +171,24 @@ Before you start, make sure following prerequisites are met:
       ```
       helm install rabbitmq .
       ```
-     - Run `\d` and observe the port for RabbitMQ show 30004.
+     - Run `\d` and observe that the port for RabbitMQ is 30004.
      - To open the rabbitMQ interface, open browser and search for:
       ```
       http://<node-ip>:30004
       ```
      <p align="center">
-       <img src="./Image/RabbitMQinterface.png" width="500" title="ekscluster_role" alt="ekscluster_role">
+       <img src="./Images/RabbitMQinterface.png" width="500" title="rabbitmqinterface" alt="rabbitmqinterface">
      </p >
-      
+     - By default, the username and password is `guest`
+
+15. **Create Queue**
+     - Once login, go to "queue". We need to create 2 queue, *mp3* and *video*
+     - In queue page, add new queue
+        - type: Classic
+        - name: mp3
+      - Click "Add Queue". Repeat same step for *video*, just change the name.
+   
+16. **Apply Microservice Manifest File**
 
 
 
